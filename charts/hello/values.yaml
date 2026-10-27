@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 2
 image: bash:5.2
 message: "Hello, world!"
 intervalSeconds: 30
