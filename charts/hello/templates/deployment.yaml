@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: hello
+          image: {{ .Values.image | quote }}
+          command: ["/usr/local/bin/bash", "-c"]
+          args:
+            - |
+              while true; do
+                echo "$MESSAGE"
+                sleep "$INTERVAL"
+              done
+          env:
+            - name: MESSAGE
+              value: {{ .Values.message | quote }}
+            - name: INTERVAL
+              value: {{ .Values.intervalSeconds | quote }}
